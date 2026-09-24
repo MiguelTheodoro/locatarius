@@ -1,0 +1,138 @@
+
+@token =
+@tenant =
+@subject = 
+@role = 
+@rule = 
+
+
+
+POST http://localhost:5000/subjects
+Content-Type: application/json
+
+{
+    "name": "elon",
+    "email": "elon@gmail.com",
+    "password": "12345678"
+}
+
+###
+
+POST http://localhost:5000/subjects/entry
+Content-Type: application/json
+
+{
+    "email": "elon@gmail.com",
+    "password": "12345678"
+}
+
+###
+
+###
+
+GET http://localhost:5000/subjects/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+POST http://localhost:5000/tenants/switch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "tenant": {
+        "identity": "{{tenant}}"
+    }
+}
+
+###
+
+# (tenant) create
+POST http://localhost:5000/tenants/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "spacex"
+}
+
+###
+
+POST http://localhost:5000/tenants/subjects
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "email": "elon@gmail.com",
+    "role": "019fe1fd-6a84-7876-9181-74f6a31d665f"
+}
+
+###
+
+GET http://localhost:5000/tenants/subjects
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# (tenant) get all tenants bind to subject
+GET http://localhost:5000/tenants/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:5000/tenants/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+GET http://localhost:5000/rules
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:5000/rules/groupbyresource
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# (roles) create
+POST http://localhost:5000/roles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "role": "019fe1fd-6a84-7876-9181-74f6a31d665f",
+    "rule": ["019fe1fd-6a7c-764b-8496-d505e997adc4", "019fe1fd-6a7c-764b-8496-d505e997adc4"]
+}
+
+# (rolest) create (rules)
+POST http://localhost:5000/roles/rules
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "rule": "{{role}}",
+    "rule": [""]
+}
+
+
+###
+
+GET http://localhost:5000/roles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# (roles) get (name)
+GET http://localhost:5000/roles/rules
+Content-Type: application/json
+Authorization: Bearer {{token}}

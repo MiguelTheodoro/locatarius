@@ -1,0 +1,1 @@
+ALTER TABLE "rule" ADD CONSTRAINT "unique_action_resource" UNIQUE("action","resource");

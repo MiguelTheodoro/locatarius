@@ -1,0 +1,30 @@
+{
+  "name": "api",
+   "version": "1.0.50",
+  "module": "src/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "db:generate": "bunx --bun drizzle-kit generate",
+    "db:push": "bunx --bun drizzle-kit push",
+    "db:migrate": "bunx --bun drizzle-kit migrate"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.10"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@elysia/bearer": "^1.4.4",
+    "@elysia/jwt": "^1.4.2",
+    "@types/pg": "^8.20.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+      "elysia": "latest",
+    "pg": "^8.22.0"
+  }
+}

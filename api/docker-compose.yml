@@ -1,0 +1,19 @@
+
+
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: policy
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: policy
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - policy:/var/lib/postgresql/data
+
+volumes:
+  policy:

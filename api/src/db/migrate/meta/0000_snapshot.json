@@ -1,0 +1,374 @@
+{
+  "id": "4c632f1e-b683-4e62-adc5-c9ebb0461b82",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.belonging": {
+      "name": "belonging",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "subject": {
+          "name": "subject",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tenant": {
+          "name": "tenant",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "belonging_subject_subject_identity_fk": {
+          "name": "belonging_subject_subject_identity_fk",
+          "tableFrom": "belonging",
+          "tableTo": "subject",
+          "columnsFrom": [
+            "subject"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "belonging_tenant_tenant_identity_fk": {
+          "name": "belonging_tenant_tenant_identity_fk",
+          "tableFrom": "belonging",
+          "tableTo": "tenant",
+          "columnsFrom": [
+            "tenant"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "belonging_role_role_identity_fk": {
+          "name": "belonging_role_role_identity_fk",
+          "tableFrom": "belonging",
+          "tableTo": "role",
+          "columnsFrom": [
+            "role"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_subject_tenant": {
+          "name": "unique_subject_tenant",
+          "nullsNotDistinct": false,
+          "columns": [
+            "subject",
+            "tenant"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.regulation": {
+      "name": "regulation",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "role": {
+          "name": "role",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rule": {
+          "name": "rule",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "regulation_role_role_identity_fk": {
+          "name": "regulation_role_role_identity_fk",
+          "tableFrom": "regulation",
+          "tableTo": "role",
+          "columnsFrom": [
+            "role"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "regulation_rule_rule_identity_fk": {
+          "name": "regulation_rule_rule_identity_fk",
+          "tableFrom": "regulation",
+          "tableTo": "rule",
+          "columnsFrom": [
+            "rule"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_role_rule": {
+          "name": "unique_role_rule",
+          "nullsNotDistinct": false,
+          "columns": [
+            "role",
+            "rule"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tenant": {
+          "name": "tenant",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "role_tenant_tenant_identity_fk": {
+          "name": "role_tenant_tenant_identity_fk",
+          "tableFrom": "role",
+          "tableTo": "tenant",
+          "columnsFrom": [
+            "tenant"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_role_name_per_tenant": {
+          "name": "unique_role_name_per_tenant",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name",
+            "tenant"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.rule": {
+      "name": "rule",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "action": {
+          "name": "action",
+          "type": "action",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resource": {
+          "name": "resource",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.subject": {
+      "name": "subject",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "subject_email_unique": {
+          "name": "subject_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.tenant": {
+      "name": "tenant",
+      "schema": "",
+      "columns": {
+        "identity": {
+          "name": "identity",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner": {
+          "name": "owner",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tenant_owner_subject_identity_fk": {
+          "name": "tenant_owner_subject_identity_fk",
+          "tableFrom": "tenant",
+          "tableTo": "subject",
+          "columnsFrom": [
+            "owner"
+          ],
+          "columnsTo": [
+            "identity"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_tenant_per_owner": {
+          "name": "unique_tenant_per_owner",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name",
+            "owner"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.action": {
+      "name": "action",
+      "schema": "public",
+      "values": [
+        "create",
+        "get",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
