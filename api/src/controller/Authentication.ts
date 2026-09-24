@@ -24,7 +24,7 @@ new Elysia({ name: "Authentication" })
     .use(
         bearer()
     )
-    .macro("auth", {
+   .macro("auth", {
         
 
         resolve: async ({ bearer, jwt, headers }) => {
@@ -54,7 +54,29 @@ new Elysia({ name: "Authentication" })
 
         },
     })
+    .macro("permission", (rules: Omit<Schema.$Rule, "identity">[]) => ({
 
+        auth: true,
+
+
+        beforeHandle: async ({ token: { subject, tenant, role } }) => {
+
+            const Regulation = Database.Regulation()
+
+            
+            console.log("(Entry) (Permission.Controller) from (macro) variable { token }")
+
+            if(!await Regulation.can({ role, rules }))
+
+                return status('Unauthorized', { error: true, data: { message: "cannot permission" }})
+
+
+            console.log("(Permission.Controller) from (macro) variable { token }")
+
+
+        }
+
+    }))
 
 
 
