@@ -1,4 +1,4 @@
-# Tutum
+# Locatarius
 
 Surge-se a desconfiança quanto a segurança de arquivos proveninentes de fontes desconheidas da internet. Por isto, tal aplicação tem como objetivo avalia-los e e cataloga-los em pastas de acordo com a confiabilidades. Álem de fornerce uma interface web para a visualização do arquivos, junto a sua analise e atributos
 
